@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muchagara Healthcare Pro - Clinic Management System</title>
+    <!-- Google Fonts: Inter for a modern, clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; /* Changed font to Inter for modern feel */
+            background: linear-gradient(135deg, #e0f2f7 0%, #c2e9fb 100%); /* Softer, light blue gradient */
+            min-height: 100vh;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top to allow scrolling */
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto; /* Enable scrolling */
+        }
+
+        /* Container for the main application content */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: rgba(255, 255, 255, 0.98); /* Slightly less transparent */
+            backdrop-filter: blur(12px); /* Increased blur */
+            border-radius: 20px;
+            padding: 25px; /* Slightly more padding */
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); /* Softer, larger shadow */
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50; /* Darker text for better contrast */
+            font-size: 2.8em; /* Slightly larger heading */
+            margin-bottom: 12px;
+            background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%); /* Vibrant blue gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1 .icon {
+            font-size: 1.3em;
+            -webkit-text-fill-color: #2196F3; /* Ensure icon color matches gradient start */
+        }
+
+        .header p {
+            text-align: center;
+            color: #555; /* Slightly darker gray for tagline */
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .language-selector:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .language-selector select {
+            border: none;
+            background: transparent;
+            font-size: 1.05em;
+            color: #4a5568;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* SHA and SMS Sections */
+        .sha-section {
+            background: linear-gradient(45deg, #66bb6a 0%, #43a047 100%); /* Fresh green gradient */
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sms-notification {
+            background: #e3f2fd; /* Very light blue */
+            border: 2px solid #90caf9; /* Soft blue border */
+            color: #1a237e; /* Darker blue text */
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .sms-notification h4 {
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        /* Compliance Badges */
+        .compliance-badge {
+            background: linear-gradient(45deg, #FFC107 0%, #FF9800 100%); /* Warm orange/gold gradient */
+            color: white;
+            padding: 8px 18px;
+            border-radius: 25px; /* More rounded */
+            font-size: 0.95em;
+            font-weight: 600;
+            display: inline-block;
+            margin: 6px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Quick Actions Grid */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px; /* Increased gap */
+            margin-bottom: 30px;
+        }
+
+        .quick-action {
+            background: linear-gradient(45deg, #81D4FA 0%, #4FC3F7 100%); /* Light blue gradient */
+            color: white;
+            padding: 25px; /* More padding */
+            border-radius: 18px; /* More rounded */
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-action:hover {
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .quick-action div {
+            font-size: 2.2em; /* Slightly larger icon */
+            margin-bottom: 12px;
+        }
+
+        /* Auth Section */
+        .auth-section {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 35px; /* More padding */
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 25px; /* Increased gap */
+            margin-bottom: 35px;
+            justify-content: center;
+        }
+
+        .user-type-btn {
+            padding: 16px 35px; /* More padding */
+            border: none;
+            border-radius: 18px; /* More rounded */
+            background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%); /* Primary blue gradient */
+            color: white;
+            font-size: 1.15em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-type-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-type-btn.active {
+            background: linear-gradient(45deg, #66bb6a 0%, #43a047 100%); /* Active green gradient */
+        }
+
+        /* Login/Register Forms */
+        .login-form, .register-form {
+            max-width: 450px; /* Slightly wider forms */
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 22px; /* Slightly more space */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333; /* Darker label text */
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 14px 18px; /* More padding */
+            border: 2px solid #e0e0e0; /* Softer border */
+            border-radius: 12px; /* More rounded */
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            background-color: #fcfcfc; /* Slightly off-white input background */
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2196F3; /* Focus blue */
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.2); /* Softer, larger focus shadow */
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%); /* Primary blue gradient */
+            color: white;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dashboard Sections */
+        .dashboard {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0; /* Softer border */
+        }
+
+        .dashboard-header h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+        }
+
+        .logout-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #ef5350 0%, #d32f2f 100%); /* Red gradient */
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-nav {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #81D4FA 0%, #4FC3F7 100%); /* Light blue gradient */
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.05em;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #66bb6a 0%, #43a047 100%); /* Active green gradient */
+        }
+
+        .dashboard-content {
+            min-height: 400px;
+            background-color: #fcfcfc; /* Light background for content area */
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly larger cards */
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%); /* Primary blue gradient */
+            color: white;
+            padding: 30px; /* More padding */
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px); /* More pronounced lift */
+        }
+
+        .stat-card h3 {
+            font-size: 3em; /* Larger number */
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        /* Patient Form */
+        .patient-form {
+            background: #ffffff; /* White background */
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Soft shadow */
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* Tables */
+        .patients-table {
+            width: 100%;
+            border-collapse: separate; /* Use separate to allow border-radius on cells */
+            border-spacing: 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .patients-table th {
+            background: linear-gradient(45deg, #2196F3 0%, #1976D2 100%); /* Primary blue gradient */
+            color: white;
+            padding: 18px; /* More padding */
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .patients-table td {
+            padding: 15px 18px; /* More padding */
+            border-bottom: 1px solid #f0f0f0; /* Lighter border */
+        }
+
+        .patients-table tr:last-child td {
+            border-bottom: none; /* No border on last row */
+        }
+
+        .patients-table tbody tr:hover {
+            background: #e3f2fd; /* Light blue on hover */
+        }
+
+        /* Action Buttons in Tables */
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px; /* More rounded */
+            cursor: pointer;
+            font-size: 0.95em;
+            margin-right: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .edit-btn {
+            background: #42a5f5; /* Medium blue */
+            color: white;
+        }
+
+        .delete-btn {
+            background: #ef5350; /* Red */
+            color: white;
+        }
+
+        .view-btn {
+            background: #66bb6a; /* Green */
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 650px; /* Slightly wider modal */
+            width: 90%;
+            max-height: 85vh; /* Taller modal */
+            overflow-y: auto;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .modal-header h3 {
+            color: #2c3e50;
+            font-size: 1.8em;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2em; /* Larger close button */
+            cursor: pointer;
+            color: #777;
+            transition: color 0.2s ease;
+        }
+        .close-btn:hover {
+            color: #333;
+        }
+
+        /* Appointments List */
+        .appointments-list {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .appointment-item {
+            background: #f8f8f8; /* Slightly off-white for items */
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        .appointment-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .appointment-info h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+
+        .appointment-info p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background: #fff3e0; /* Light orange */
+            color: #e65100; /* Dark orange text */
+        }
+
+        .status-confirmed {
+            background: #e8f5e9; /* Light green */
+            color: #2e7d32; /* Dark green text */
+        }
+
+        .status-completed {
+            background: #e1f5fe; /* Light blue */
+            color: #1565c0; /* Dark blue text */
+        }
+
+        .status-cancelled {
+            background: #ffebee; /* Light red */
+            color: #c62828; /* Dark red text */
+        }
+
+
+        /* Message Box */
+        .message-box {
+            background-color: #fffde7; /* Very light yellow */
+            color: #8d6e63; /* Brownish text */
+            border: 1px solid #ffe0b2; /* Light orange border */
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .message-box.error {
+            background-color: #ffebee;
+            color: #c62828;
+            border-color: #ef9a9a;
+        }
+
+        .message-box.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+
+        .message-box.info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-color: #90caf9;
+        }
+
+        /* User ID Display */
+        .user-id-display {
+            font-size: 0.95em;
+            color: #777;
+            text-align: center;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            word-break: break-all;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Firebase Status Indicator */
+        .firebase-status {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .status-connected {
+            color: #4CAF50; /* Green for connected */
+        }
+        
+        .status-disconnected {
+            color: #F44336; /* Red for disconnected/error */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .user-type-selector {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .dashboard-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .patients-table {
+                font-size: 0.85em;
+            }
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .header p {
+                font-size: 1.0em;
+            }
+            .language-selector {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            .modal-content {
+                width: 95%;
+                padding: 25px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .dashboard-header h2 {
+                font-size: 1.8em;
+            }
+            .logout-btn {
+                padding: 10px 20px;
+            }
+            .nav-btn {
+                padding: 12px 20px;
+            }
+            .stat-card {
+                padding: 25px;
+            }
+            .quick-action {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-selector">
+            <select id="languageSelector">
+                <option value="en">🇬🇧 English</option>
+                <option value="sw">🇰🇪 Kiswahili</option>
+            </select>
+        </div>
+
+        <div class="header">
+            <h1><i class="fas fa-hospital icon"></i> <span id="brandName" data-en="Muchagara Healthcare Pro" data-sw="Muchagara Afya Bora">Muchagara Healthcare Pro</span></h1>
+            <p id="tagline" data-en="Comprehensive Clinic Management System" data-sw="Mfumo Kamili wa Usimamizi wa Kliniki">Comprehensive Clinic Management System</p>
+            <div class="compliance-badge" data-en="MoH Kenya Compliant" data-sw="Inazingatia Viwango vya Wizara ya Afya Kenya">MoH Kenya Compliant</div>
+            <div class="compliance-badge" data-en="SHA Registered" data-sw="Imesajiliwa SHA">SHA Registered</div>
+        </div>
+
+        <div class="message-box" id="globalMessageBox"></div>
+        
+        <div class="firebase-status" id="firebaseStatus">
+            <i class="fas fa-circle-notch fa-spin"></i> <span data-en="Connecting to Firebase..." data-sw="Inaunganisha na Firebase...">Connecting to Firebase...</span>
+        </div>
+
+        <div class="auth-section" id="authSection">
+            <p class="user-guidance" data-en="Welcome! Please select your role to proceed." data-sw="Karibu! Tafadhali chagua jukumu lako ili kuendelea.">Welcome! Please select your role to proceed.</p>
+            <div class="user-type-selector">
+                <button class="user-type-btn active" id="patientLoginBtn" data-en="Patient Portal" data-sw="Lango la Wagonjwa">Patient Portal</button>
+                <button class="user-type-btn" id="medicLoginBtn" data-en="Medical Staff" data-sw="Wafanyakazi wa Matibabu">Medical Staff</button>
+            </div>
+
+            <div id="patient-auth-form" class="login-form">
+                <h2 data-en="Patient Login" data-sw="Kuingia kwa Mgonjwa">Patient Login</h2>
+                <p class="user-guidance-small" data-en="Enter your patient credentials or register if you don't have an account." data-sw="Weka vitambulisho vyako vya mgonjwa au jisajili ikiwa huna akaunti.">Enter your patient credentials or register if you huna akaunti.</p>
+                <div class="form-group">
+                    <label for="patientUsername" data-en="Email" data-sw="Barua Pepe">Email</label>
+                    <input type="email" id="patientUsername" placeholder="patient@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="patientPassword" data-en="Password" data-sw="Nenosiri">Password</label>
+                    <input type="password" id="patientPassword" placeholder="********">
+                </div>
+                <button class="btn" id="patientSignInBtn" data-en="Login" data-sw="Ingia">Login</button>
+                <p class="toggle-auth" data-en="Don't have an account? Register as Patient" data-sw="Huna akaunti? Jisajili kama Mgonjwa">Don't have an account? <a href="#" id="showPatientRegister">Register as Patient</a></p>
+            </div>
+
+            <div id="medic-auth-form" class="login-form" style="display:none;">
+                <h2 data-en="Medical Staff Login" data-sw="Kuingia kwa Wafanyakazi wa Matibabu">Medical Staff Login</h2>
+                <p class="user-guidance-small" data-en="Enter your medical staff credentials or register if you don't have an account." data-sw="Weka vitambulisho vyako vya wafanyakazi wa matibabu au jisajili ikiwa huna akaunti.">Enter your medical staff credentials or register if you huna akaunti.</p>
+                <div class="form-group">
+                    <label for="medicUsername" data-en="Email" data-sw="Barua Pepe">Email</label>
+                    <input type="email" id="medicUsername" placeholder="medic@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="medicPassword" data-en="Password" data-sw="Nenosiri">Password</label>
+                    <input type="password" id="medicPassword" placeholder="********">
+                </div>
+                <button class="btn" id="medicSignInBtn" data-en="Login" data-sw="Ingia">Login</button>
+                <p class="toggle-auth" data-en="Don't have an account? Register as Medic" data-sw="Huna akaunti? Jisajili kama Daktari">Don't have an account? <a href="#" id="showMedicRegister">Register as Medic</a></p>
+            </div>
+
+            <div id="patient-register-form" class="login-form" style="display:none;">
+                <h2 data-en="Patient Registration" data-sw="Usajili wa Mgonjwa">Patient Registration</h2>
+                <p class="user-guidance-small" data-en="Fill in your details to create a new patient account." data-sw="Jaza maelezo yako ili kuunda akaunti mpya ya mgonjwa.">Fill in your details to create a new patient account.</p>
+                <div class="form-group">
+                    <label for="regPatientEmail" data-en="Email" data-sw="Barua Pepe">Email</label>
+                    <input type="email" id="regPatientEmail" placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="regPatientPassword" data-en="Password" data-sw="Nenosiri">Password</label>
+                    <input type="password" id="regPatientPassword" placeholder="********">
+                </div>
+                <button class="btn" id="registerPatientBtn" data-en="Register" data-sw="Jisajili">Register</button>
+                <p class="toggle-auth" data-en="Already have an account? Login" data-sw="Tayari una akaunti? Ingia">Already have an account? <a href="#" id="backToPatientLogin">Login</a></p>
+            </div>
+
+            <div id="medic-register-form" class="login-form" style="display:none;">
+                <h2 data-en="Medic Registration" data-sw="Usajili wa Daktari">Medic Registration</h2>
+                <p class="user-guidance-small" data-en="Fill in your details to create a new medical staff account." data-sw="Jaza maelezo yako ili kuunda akaunti mpya ya wafanyakazi wa matibabu.">Fill in your details to create a new medical staff account.</p>
+                <div class="form-group">
+                    <label for="regMedicEmail" data-en="Email" data-sw="Barua Pepe">Email</label>
+                    <input type="email" id="regMedicEmail" placeholder="medic@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="regMedicPassword" data-en="Password" data-sw="Nenosiri">Password</label>
+                    <input type="password" id="regMedicPassword" placeholder="********">
+                </div>
+                <button class="btn" id="registerMedicBtn" data-en="Register" data-sw="Jisajili">Register</button>
+                <p class="toggle-auth" data-en="Already have an account? Login" data-sw="Tayari una akaunti? Ingia">Already have an account? <a href="#" id="backToMedicLogin">Login</a></p>
+            </div>
+        </div>
+
+        <!-- Patient Dashboard -->
+        <div class="dashboard" id="patientDashboardSection">
+            <div class="dashboard-header">
+                <h2 id="patientDashboardTitle" data-en="Patient Dashboard" data-sw="Dashibodi ya Mgonjwa">Patient Dashboard</h2>
+                <button class="logout-btn" id="patientLogoutBtn" data-en="Logout" data-sw="Toka">Logout</button>
+            </div>
+            <p class="user-id-display" data-en="Your User ID: " data-sw="Kitambulisho chako cha Mtumiaji: ">Your User ID: <span id="currentPatientUserId"></span></p>
+
+            <div class="dashboard-nav">
+                <button class="nav-btn active" id="navBtnPatientOverview" data-en="Overview" data-sw="Muhtasari">Overview</button>
+                <button class="nav-btn" id="navBtnPatientAppointments" data-en="Appointments" data-sw="Miadi">Appointments</button>
+                <button class="nav-btn" id="navBtnPatientRecords" data-en="Medical Records" data-sw="Rekodi za Matibabu">Medical Records</button>
+                <button class="nav-btn" id="navBtnPatientProfile" data-en="Profile" data-sw="Wasifu">Profile</button>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="section active" id="patientOverview">
+                    <div class="sha-section">
+                        <h4 id="shaTitle" data-en="SHA Coverage Status" data-sw="Hali ya Bima ya SHA">SHA Coverage Status</h4>
+                        <p id="shaStatus" data-en="✅ Active SHA Member - Coverage Valid Until Dec 2025" data-sw="✅ Mwanachama hai wa SHA - Bima Halali hadi Desemba 2025">✅ Active SHA Member - Coverage Valid Until Dec 2025</p>
+                        <p id="shaBalance" data-en="Available Balance: KSH 50,000" data-sw="Salio Lililopo: KSH 50,000">Available Balance: KSH 50,000</p>
+                    </div>
+
+                    <div class="sms-notification">
+                        <h4 id="smsTitle" data-en="📱 SMS Notifications" data-sw="📱 Arifa za SMS">📱 Arifa za SMS</h4>
+                        <p id="smsStatus" data-en="✅ SMS alerts enabled for appointments and prescriptions" data-sw="✅ Arifa za SMS zimewezeshwa kwa miadi na maagizo">✅ SMS alerts enabled for appointments and prescriptions</p>
+                        <p id="smsPhone" data-en="Registered Phone: +254 712 345 678" data-sw="Namba ya Simu Iliyosajiliwa: +254 712 345 678">Registered Phone: +254 712 345 678</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3 id="numUpcomingAppts">3</h3>
+                            <p data-en="Upcoming Appointments" data-sw="Miadi Ijayo">Upcoming Appointments</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="numMedicalRecords">12</h3>
+                            <p data-en="Medical Records" data-sw="Rekodi za Matibabu">Medical Records</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="numPrescriptions">2</h3>
+                            <p data-en="Prescriptions" data-sw="Maagizo">Prescriptions</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <div class="quick-action" id="quickActionEmergency">
+                            <div>🚨</div>
+                            <p data-en="Emergency Booking" data-sw="Kuhifadhi Dharura">Emergency Booking</p>
+                        </div>
+                        <div class="quick-action" id="quickActionSHAClaims">
+                            <div>💳</div>
+                            <p data-en="SHA Claims" data-sw="Madai ya SHA">SHA Claims</p>
+                        </div>
+                        <div class="quick-action" id="quickActionSMSReminder">
+                            <div>📱</div>
+                            <p data-en="SMS Reminder" data-sw="Kikumbusho cha SMS">SMS Reminder</p>
+                        </div>
+                    </div>
+
+                    <div class="appointments-list">
+                        <h3 id="nextApptsTitle" data-en="Next Appointments" data-sw="Miadi Ijayo">Next Appointments</h3>
+                        <div class="appointment-item">
+                            <div class="appointment-info">
+                                <h4 data-en="Dr. Sarah Johnson - Cardiology" data-sw="Dkt. Sarah Johnson - Magonjwa ya Moyo">Dr. Sarah Johnson - Cardiology</h4>
+                                <p data-en="July 8, 2025 at 2:00 PM" data-sw="Julai 8, 2025 saa 8:00 Mchana">July 8, 2025 at 2:00 PM</p>
+                                <p data-en="💳 SHA Covered | 📱 SMS Reminder Sent" data-sw="💳 SHA Imelipwa | 📱 Kikumbusho cha SMS Kimetumwa">💳 SHA Covered | 📱 SMS Reminder Sent</p>
+                            </div>
+                            <span class="status-badge status-confirmed" data-en="Confirmed" data-sw="Imethibitishwa">Confirmed</span>
+                        </div>
+                        <div class="appointment-item">
+                            <div class="appointment-info">
+                                <h4 data-en="Dr. Michael Chen - General Check-up" data-sw="Dkt. Michael Chen - Uchunguzi Mkuu">Dr. Michael Chen - General Check-up</h4>
+                                <p data-en="July 15, 2025 at 10:30 AM" data-sw="Julai 15, 2025 saa 4:30 Asubuhi">July 15, 2025 at 10:30 AM</p>
+                                <p data-en="💰 Cash Payment | 📱 SMS Reminder Pending" data-sw="💰 Malipo ya Fedha | 📱 Kikumbusho cha SMS Kinachosubiri">💰 Cash Payment | 📱 SMS Reminder Pending</p>
+                            </div>
+                            <span class="status-badge status-pending" data-en="Pending" data-sw="Inasubiri">Pending</span>
+                        </div>
+                    </div>
+                    <div id="my-records-display">
+                        <!-- Patient's own records will be loaded here by loadMyRecords() -->
+                    </div>
+                </div>
+
+                <div class="section" id="patientAppointments">
+                    <h3 data-en="Book New Appointment" data-sw="Weka Miadi Mpya">Book New Appointment</h3>
+                    <div class="patient-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department" data-en="Department" data-sw="Idara">Department</label>
+                                <select id="department">
+                                    <option value="cardiology" data-en="Cardiology" data-sw="Moyo">Cardiology</option>
+                                    <option value="pediatrics" data-en="Pediatrics" data-sw="Watoto">Pediatrics</option>
+                                    <option value="orthopedics" data-en="Orthopedics" data-sw="Mifupa">Orthopedics</option>
+                                    <option value="dermatology" data-en="Dermatology" data-sw="Ngozi">Dermatology</option>
+                                    <option value="general" data-en="General Medicine" data-sw="Matibabu ya Kawaida">General Medicine</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentDate" data-en="Preferred Date" data-sw="Tarehe Unayopendelea">Preferred Date</label>
+                                <input type="date" id="appointmentDate">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="appointmentTime" data-en="Preferred Time" data-sw="Muda Unayopendelea">Preferred Time</label>
+                                <input type="time" id="appointmentTime">
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMethod" data-en="Payment Method" data-sw="Njia ya Malipo">Payment Method</label>
+                                <select id="paymentMethod">
+                                    <option value="sha" data-en="SHA Coverage" data-sw="Bima ya SHA">SHA Coverage</option>
+                                    <option value="cash" data-en="Cash Payment" data-sw="Malipo ya Fedha">Cash Payment</option>
+                                    <option value="mpesa" data-en="M-Pesa" data-sw="M-Pesa">M-Pesa</option>
+                                    <option value="insurance" data-en="Private Insurance" data-sw="Bima Binafsi">Private Insurance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="shaNumber" data-en="SHA Number (if applicable)" data-sw="Namba ya SHA (ikiwezekana)">SHA Number (if applicable)</label>
+                                <input type="text" id="shaNumber" placeholder="e.g., 1234567890">
+                            </div>
+                            <div class="form-group">
+                                <label for="reason" data-en="Reason for Visit" data-sw="Sababu ya Ziara">Reason for Visit</label>
+                                <textarea id="reason" rows="3" placeholder="Brief description of your concern"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="smsNotificationCheckbox" checked>
+                                    <span data-en="Send SMS reminders" data-sw="Tuma vikumbusho vya SMS">Send SMS reminders</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn" id="bookApptBtn" data-en="Book Appointment" data-sw="Weka Miadi">Book Appointment</button>
+                    </div>
+                </div>
+
+                <div class="section" id="patientRecords">
+                    <h3 data-en="Medical Records" data-sw="Rekodi za Matibabu">Medical Records</h3>
+                    <table class="patients-table">
+                        <thead>
+                            <tr>
+                                <th data-en="Date" data-sw="Tarehe">Date</th>
+                                <th data-en="Doctor" data-sw="Daktari">Doctor</th>
+                                <th data-en="Department" data-sw="Idara">Department</th>
+                                <th data-en="Diagnosis" data-sw="Utambuzi">Diagnosis</th>
+                                <th data-en="Actions" data-sw="Vitendo">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientRecordsTableBody">
+                            <!-- Records will be dynamically loaded here -->
+                            <tr>
+                                <td>June 15, 2025</td>
+                                <td>Dr. Sarah Johnson</td>
+                                <td>Cardiology</td>
+                                <td>Routine Check-up</td>
+                                <td>
+                                    <button class="action-btn view-btn" data-record-id="rec1" data-en="View" data-sw="Angalia">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>May 20, 2025</td>
+                                <td>Dr. Michael Chen</td>
+                                <td>General</td>
+                                <td>Flu Symptoms</td>
+                                <td>
+                                    <button class="action-btn view-btn" data-record-id="rec2" data-en="View" data-sw="Angalia">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section" id="patientProfile">
+                    <h3 data-en="Profile Information" data-sw="Taarifa za Wasifu">Profile Information</h3>
+                    <div class="patient-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientName" data-en="Full Name" data-sw="Jina Kamili">Full Name</label>
+                                <input type="text" id="patientName" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientDob" data-en="Date of Birth" data-sw="Tarehe ya Kuzaliwa">Date of Birth</label>
+                                <input type="date" id="patientDob" value="1990-05-15">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientPhone" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
+                                <input type="text" id="patientPhone" value="+254 712 345 678">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientEmail" data-en="Email" data-sw="Barua Pepe">Email</label>
+                                <input type="email" id="patientEmail" value="john.doe@example.com" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patientAddress" data-en="Address" data-sw="Anwani">Address</label>
+                                <input type="text" id="patientAddress" value="Nairobi, Kenya">
+                            </div>
+                            <div class="form-group">
+                                <label for="patientSHA" data-en="SHA Number" data-sw="Namba ya SHA">SHA Number</label>
+                                <input type="text" id="patientSHA" placeholder="Enter SHA number" value="1234567890">
+                            </div>
+                        </div>
+                        <button class="btn" id="updateProfileBtn" data-en="Update Profile" data-sw="Sasisha Wasifu">Update Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medic Dashboard -->
+        <div class="dashboard" id="medicDashboardSection">
+            <div class="dashboard-header">
+                <h2 id="medicDashboardTitle" data-en="Medic Dashboard" data-sw="Dashibodi ya Daktari">Medic Dashboard</h2>
+                <button class="logout-btn" id="medicLogoutBtn" data-en="Logout" data-sw="Toka">Logout</button>
+            </div>
+            <p class="user-id-display" data-en="Your User ID: " data-sw="Kitambulisho chako cha Mtumiaji: ">Your User ID: <span id="currentMedicUserId"></span></p>
+
+            <div class="dashboard-nav">
+                <button class="nav-btn active" id="navBtnMedicOverview" data-en="Overview" data-sw="Muhtasari">Overview</button>
+                <button class="nav-btn" id="navBtnManagePatients" data-en="Manage Patients" data-sw="Dhibiti Wagonjwa">Manage Patients</button>
+                <button class="nav-btn" id="navBtnManageAppointments" data-en="Manage Appointments" data-sw="Dhibiti Miadi">Manage Appointments</button>
+                <button class="nav-btn" id="navBtnAddPatient" data-en="Add New Patient" data-sw="Ongeza Mgonjwa Mpya">Add New Patient</button>
+            </div>
+
+            <div class="dashboard-content">
+                <div class="section active" id="medicOverview">
+                    <h3 data-en="Clinic Overview" data-sw="Muhtasari wa Kliniki">Clinic Overview</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3 id="totalPatients">50</h3>
+                            <p data-en="Total Patients" data-sw="Jumla ya Wagonjwa">Jumla ya Wagonjwa</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="pendingAppointments">5</h3>
+                            <p data-en="Pending Appointments" data-sw="Miadi Inayosubiri">Miadi Inayosubiri</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="newRecordsToday">3</h3>
+                            <p data-en="New Records Today" data-sw="Rekodi Mpya Leo">Rekodi Mpya Leo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="managePatients">
+                    <h3 data-en="Manage Patients" data-sw="Dhibiti Wagonjwa">Dhibiti Wagonjwa</h3>
+                    <table class="patients-table">
+                        <thead>
+                            <tr>
+                                <th data-en="Name" data-sw="Jina">Name</th>
+                                <th data-en="Age" data-sw="Umri">Age</th>
+                                <th data-en="Phone" data-sw="Simu">Phone</th>
+                                <th data-en="Status" data-sw="Hali">Status</th>
+                                <th data-en="Actions" data-sw="Vitendo">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicPatientsTableBody">
+                            <!-- Patients will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section" id="manageAppointments">
+                    <h3 data-en="Manage Appointments" data-sw="Dhibiti Miadi">Dhibiti Miadi</h3>
+                    <table class="patients-table">
+                        <thead>
+                            <tr>
+                                <th data-en="Patient" data-sw="Mgonjwa">Patient</th>
+                                <th data-en="Date" data-sw="Tarehe">Date</th>
+                                <th data-en="Time" data-sw="Muda">Time</th>
+                                <th data-en="Reason" data-sw="Sababu">Reason</th>
+                                <th data-en="Status" data-sw="Hali">Status</th>
+                                <th data-en="Actions" data-sw="Vitendo">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medicAppointmentsTableBody">
+                            <!-- Appointments will be dynamically loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section" id="addPatient">
+                    <h3 data-en="Add New Patient" data-sw="Ongeza Mgonjwa Mpya">Ongeza Mgonjwa Mpya</h3>
+                    <div class="patient-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPatientName" data-en="Full Name" data-sw="Jina Kamili">Full Name</label>
+                                <input type="text" id="newPatientName" placeholder="Patient's Full Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPatientDob" data-en="Date of Birth" data-sw="Tarehe ya Kuzaliwa">Date of Birth</label>
+                                <input type="date" id="newPatientDob">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPatientPhone" data-en="Phone Number" data-sw="Namba ya Simu">Phone Number</label>
+                                <input type="text" id="newPatientPhone" placeholder="+254 7XX XXX XXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPatientEmail" data-en="Email" data-sw="Barua Pepe">Email</label>
+                                <input type="email" id="newPatientEmail" placeholder="patient.email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newPatientAddress" data-en="Address" data-sw="Anwani">Address</label>
+                                <input type="text" id="newPatientAddress" placeholder="Patient's Address">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyContact" data-en="Emergency Contact" data-sw="Mawasiliano ya Dharura">Emergency Contact</label>
+                                <input type="text" id="emergencyContact" placeholder="Name or Phone">
+                            </div>
+                        </div>
+                        <button class="btn" id="addPatientBtn" data-en="Add Patient" data-sw="Ongeza Mgonjwa">Add Patient</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Record Details Modal -->
+    <div id="recordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Medical Record Details" data-sw="Maelezo ya Rekodi ya Matibabu">Medical Record Details</h3>
+                <span class="close-btn" id="closeModalBtn">&times;</span>
+            </div>
+            <div id="recordDetails">
+                <!-- Record details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import {
+            getAuth,
+            signInAnonymously,
+            signInWithCustomToken, // Ensure this is imported
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc,
+            addDoc,
+            collection,
+            query,
+            where,
+            getDocs,
+            onSnapshot,
+            deleteDoc
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase variables (provided by Canvas environment)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- IMPORTANT: PASTE YOUR FIREBASE CONFIG HERE ---
+        const firebaseConfig = {
+            apiKey:"AIzaSyC2k1z-b-zyqyN_Y__-WhgusOZbjpH4sNk",
+            authDomain: "muchagara-healthcare.firebaseapp.com",
+            projectId:"muchagara-healthcare", // Your provided Project ID
+            storageBucket: "muchagara-healthcare.appspot.com",
+            messagingSenderId: "544499690084",
+            appId: "1:544499690084:web:bf7529d1cef719f72a4d71",
+            measurementId: "G-3DQ6G0WS80"
+        };
+        // --- END OF FIREBASE CONFIG ---
+
+        // Initialize Firebase
+        let app;
+        let auth;
+        let db;
+        const firebaseStatus = document.getElementById('firebaseStatus'); // Get reference here
+
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            console.log("Firebase initialized successfully");
+            if (firebaseStatus) {
+                firebaseStatus.innerHTML = `<i class="fas fa-check-circle status-connected"></i> <span data-en="Firebase connected successfully" data-sw="Firebase imeunganishwa kwa ufanisi">Firebase connected successfully</span>`;
+            }
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+            if (firebaseStatus) {
+                firebaseStatus.innerHTML = `<i class="fas fa-exclamation-triangle status-disconnected"></i> <span data-en="Firebase connection failed" data-sw="Muunganisho wa Firebase umeshindwa">Firebase connection failed</span>`;
+            }
+            showMessage(globalMessageBox, `Error initializing Firebase: ${error.message}. App may not function correctly.`, 'error');
+            // Do not throw error here, allow the rest of the script to run for UI to load
+        }
+
+        // Global variables
+        let currentUserId = null;
+        let currentUserRole = null;
+        let currentLanguage = 'en';
+        let authInitialized = false; // Flag to ensure initial auth logic runs only once
+
+        // --- DOM Elements ---
+        // Defined at the top level to ensure global accessibility after DOMContentLoaded
+        const globalMessageBox = document.getElementById('globalMessageBox');
+        const authSection = document.getElementById('authSection');
+        const patientDashboardSection = document.getElementById('patientDashboardSection');
+        const medicDashboardSection = document.getElementById('medicDashboardSection');
+
+        // Auth form elements
+        const patientLoginBtn = document.getElementById('patientLoginBtn');
+        const medicLoginBtn = document.getElementById('medicLoginBtn');
+        const patientLoginForm = document.getElementById('patient-auth-form');
+        const medicLoginForm = document.getElementById('medic-auth-form');
+        const patientRegisterForm = document.getElementById('patient-register-form');
+        const medicRegisterForm = document.getElementById('medic-register-form');
+
+        const patientUsernameInput = document.getElementById('patientUsername');
+        const patientPasswordInput = document.getElementById('patientPassword');
+        const patientSignInBtn = document.getElementById('patientSignInBtn');
+        const showPatientRegisterLink = document.getElementById('showPatientRegister');
+        const backToPatientLoginLink = document.getElementById('backToPatientLogin');
+        const regPatientEmailInput = document.getElementById('regPatientEmail');
+        const regPatientPasswordInput = document.getElementById('regPatientPassword');
+        const registerPatientBtn = document.getElementById('registerPatientBtn');
+
+        const medicUsernameInput = document.getElementById('medicUsername');
+        const medicPasswordInput = document.getElementById('medicPassword');
+        const medicSignInBtn = document.getElementById('medicSignInBtn');
+        const showMedicRegisterLink = document.getElementById('showMedicRegister');
+        const backToMedicLoginLink = document.getElementById('backToMedicLogin');
+        const regMedicEmailInput = document.getElementById('regMedicEmail');
+        const regMedicPasswordInput = document.getElementById('regMedicPassword');
+        const registerMedicBtn = document.getElementById('registerMedicBtn');
+
+        const patientLogoutBtn = document.getElementById('patientLogoutBtn');
+        const medicLogoutBtn = document.getElementById('medicLogoutBtn');
+
+        const currentPatientUserIdDisplay = document.getElementById('currentPatientUserId');
+        const currentMedicUserIdDisplay = document.getElementById('currentMedicUserId');
+
+        // Patient Dashboard Elements
+        const patientDashboardTitle = document.getElementById('patientDashboardTitle');
+        const patientOverviewSection = document.getElementById('patientOverview');
+        const patientAppointmentsSection = document.getElementById('patientAppointments');
+        const patientRecordsSection = document.getElementById('patientRecords');
+        const patientProfileSection = document.getElementById('patientProfile');
+        const patientRecordsTableBody = document.getElementById('patientRecordsTableBody');
+
+        const patientNameInput = document.getElementById('patientName');
+        const patientDobInput = document.getElementById('patientDob');
+        const patientPhoneInput = document.getElementById('patientPhone');
+        const patientEmailInput = document.getElementById('patientEmail');
+        const patientAddressInput = document.getElementById('patientAddress');
+        const patientSHAInput = document.getElementById('patientSHA');
+
+        const departmentSelect = document.getElementById('department');
+        const appointmentDateInput = document.getElementById('appointmentDate');
+        const appointmentTimeInput = document.getElementById('appointmentTime');
+        const paymentMethodSelect = document.getElementById('paymentMethod');
+        const shaNumberInput = document.getElementById('shaNumber');
+        const reasonTextarea = document.getElementById('reason');
+        const smsNotificationCheckbox = document.getElementById('smsNotificationCheckbox');
+        const bookApptBtn = document.getElementById('bookApptBtn');
+        const updateProfileBtn = document.getElementById('updateProfileBtn');
+
+        const quickActionEmergency = document.getElementById('quickActionEmergency');
+        const quickActionSHAClaims = document.getElementById('quickActionSHAClaims');
+        const quickActionSMSReminder = document.getElementById('quickActionSMSReminder');
+
+        // Medic Dashboard Elements
+        const medicDashboardTitle = document.getElementById('medicDashboardTitle');
+        const medicOverviewSection = document.getElementById('medicOverview');
+        const managePatientsSection = document.getElementById('managePatients');
+        const manageAppointmentsSection = document.getElementById('manageAppointments');
+        const addPatientSection = document.getElementById('addPatient');
+        const medicPatientsTableBody = document.getElementById('medicPatientsTableBody');
+        const medicAppointmentsTableBody = document.getElementById('medicAppointmentsTableBody');
+
+        const newPatientNameInput = document.getElementById('newPatientName');
+        const newPatientDobInput = document.getElementById('newPatientDob');
+        const newPatientPhoneInput = document.getElementById('newPatientPhone');
+        const newPatientEmailInput = document.getElementById('newPatientEmail');
+        const newPatientAddressInput = document.getElementById('newPatientAddress');
+        const emergencyContactInput = document.getElementById('emergencyContact');
+        const addPatientBtn = document.getElementById('addPatientBtn');
+
+        // Modal elements
+        const recordModal = document.getElementById('recordModal');
+        const recordDetailsDiv = document.getElementById('recordDetails');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        // Navigation buttons (patient dashboard)
+        const navBtnPatientOverview = document.getElementById('navBtnPatientOverview');
+        const navBtnPatientAppointments = document.getElementById('navBtnPatientAppointments');
+        const navBtnPatientRecords = document.getElementById('navBtnPatientRecords');
+        const navBtnPatientProfile = document.getElementById('navBtnPatientProfile');
+
+        // Navigation buttons (medic dashboard)
+        const navBtnMedicOverview = document.getElementById('navBtnMedicOverview');
+        const navBtnManagePatients = document.getElementById('navBtnManagePatients');
+        const navBtnManageAppointments = document.getElementById('navBtnManageAppointments');
+        const navBtnAddPatient = document.getElementById('navBtnAddPatient');
+
+        // Form guidance elements (re-declared for local scope and clarity)
+        const userGuidance = document.querySelector('.user-guidance');
+        const patientLoginGuidance = document.querySelector('#patient-auth-form .user-guidance-small');
+        const medicLoginGuidance = document.querySelector('#medic-auth-form .user-guidance-small');
+        const patientRegisterGuidance = document.querySelector('#patient-register-form .user-guidance-small');
+        const medicRegisterGuidance = document.querySelector('#medic-register-form .user-guidance-small');
+
+        // --- Translation Data ---
+        const translations = {
+            en: {
+                brandName: "Muchagara Healthcare Pro",
+                tagline: "Comprehensive Clinic Management System",
+                mohCompliant: "MoH Kenya Compliant",
+                shaRegistered: "SHA Registered",
+                patientPortal: "Patient Portal",
+                medicalStaff: "Medical Staff",
+                patientLogin: "Patient Login",
+                medicLogin: "Medical Staff Login",
+                email: "Email",
+                password: "Password",
+                login: "Login",
+                dontHaveAccount: "Don't have an account?",
+                registerAsPatient: "Register as Patient",
+                registerAsMedic: "Register as Medic",
+                patientRegistration: "Patient Registration",
+                medicRegistration: "Medic Registration",
+                register: "Register",
+                alreadyHaveAccount: "Already have an account?",
+                backToLogin: "Login",
+                logout: "Logout",
+                yourUserId: "Your User ID: ",
+                patientDashboard: "Patient Dashboard",
+                medicDashboard: "Medic Dashboard",
+                overview: "Overview",
+                appointments: "Appointments",
+                medicalRecords: "Medical Records",
+                profile: "Profile",
+                shaTitle: "SHA Coverage Status",
+                shaStatus: "✅ Active SHA Member - Coverage Valid Until Dec 2025",
+                shaBalance: "Available Balance: KSH 50,000",
+                smsTitle: "📱 SMS Notifications",
+                smsStatus: "✅ SMS alerts enabled for appointments and prescriptions",
+                smsPhone: "Registered Phone: +254 712 345 678",
+                upcomingAppts: "Upcoming Appointments",
+                medRecords: "Medical Records",
+                prescriptions: "Prescriptions",
+                emergencyBtn: "Emergency Booking",
+                shaClaimsBtn: "SHA Claims",
+                smsReminderBtn: "SMS Reminder",
+                nextAppts: "Next Appointments",
+                drSarah: "Dr. Sarah Johnson - Cardiology",
+                drMichael: "Dr. Michael Chen - General Check-up",
+                confirmed: "Confirmed",
+                pending: "Pending",
+                bookNewAppt: "Book New Appointment",
+                department: "Department",
+                preferredDate: "Preferred Date",
+                preferredTime: "Preferred Time",
+                paymentMethod: "Payment Method",
+                shaCoverage: "SHA Coverage",
+                cashPayment: "Cash Payment",
+                mpesa: "M-Pesa",
+                privateInsurance: "Private Insurance",
+                shaNumber: "SHA Number (if applicable)",
+                reasonForVisit: "Reason for Visit",
+                sendSmsReminders: "Send SMS reminders",
+                bookAppointment: "Book Appointment",
+                date: "Date",
+                doctor: "Doctor",
+                diagnosis: "Diagnosis",
+                actions: "Actions",
+                fullName: "Full Name",
+                dateOfBirth: "Date of Birth",
+                phoneNumber: "Phone Number",
+                address: "Address",
+                updateProfile: "Update Profile",
+                clinicOverview: "Clinic Overview",
+                totalPatients: "Total Patients",
+                pendingAppointments: "Pending Appointments",
+                newRecordsToday: "New Records Today",
+                managePatients: "Manage Patients",
+                manageAppointments: "Manage Appointments",
+                addNewPatient: "Add New Patient",
+                name: "Name",
+                age: "Age",
+                phone: "Phone",
+                status: "Status",
+                patient: "Patient",
+                time: "Time",
+                addPatient: "Add Patient",
+                emergencyContact: "Emergency Contact",
+                medicalRecordDetails: "Medical Record Details",
+                close: "Close",
+                profileUpdatedSuccess: "Profile updated successfully! SHA records have been synchronized.",
+                shaVerificationComplete: "SHA verification completed. Your coverage is active.",
+                pleaseFillAllFields: "Please fill in all fields",
+                viewingDetailsFor: "Viewing details for patient ID: {id}. (Feature under development)",
+                patientNotFound: "Patient not found.",
+                failedToFetchPatientDetails: "Failed to fetch patient details.",
+                backToList: "Back to List",
+                appointmentBookedSuccess: "Appointment booked successfully! A medic will review it soon.",
+                failedToBookAppointment: "Failed to book appointment. Please try again.",
+                patientAddedSuccess: "Patient \"{name}\" added successfully!",
+                failedToAddPatient: "Failed to add patient. Please try again.",
+                loadingPatients: "Loading patients...",
+                noPatientsFound: "No patients found.",
+                errorLoadingPatients: "Error loading patients.",
+                loadingRecords: "Loading your health records...",
+                noRecordsFound: "No detailed health records found for your account yet. Please contact your clinic.",
+                errorLoadingRecords: "Error loading records.",
+                suggestionPediatric: "Ensure regular pediatric check-ups and vaccinations.",
+                suggestionAdult: "Consider annual physicals and age-appropriate screenings (e.g., blood pressure, cholesterol).",
+                suggestionSenior: "Regular health screenings, bone density checks, and discussions about chronic disease prevention are recommended.",
+                suggestionDOBMissing: "To get personalized health suggestions, please ensure your Date of Birth is recorded.",
+                emergencyBooked: "Emergency appointment booked. A medic will contact you shortly.",
+                shaClaimsViewed: "SHA claims section opened. (Simulated)",
+                smsReminderSent: "SMS reminder sent for your next appointment. (Simulated)",
+                mpesaSelected: "M-Pesa selected as payment method. You will receive a prompt.",
+                shaSelected: "SHA selected as payment method. Your coverage will be verified.",
+                equitySelected: "Equity Bank selected as payment method. Proceed with mobile banking.",
+                kcbSelected: "KCB Bank selected as payment method. Proceed with mobile banking.",
+                cardiology: "Cardiology",
+                routineCheckup: "Routine Check-up",
+                noSpecificSymptoms: "No specific symptoms, routine annual check-up",
+                generalHealthAssessment: "General health assessment completed",
+                continueCurrentMedications: "Continue current medications",
+                patientInGoodHealth: "Patient in good health, recommend follow-up in 6 months",
+                approvedKsh: "Approved - KSH 2,500",
+                referenceNumber: "Reference Number",
+                prescriptionReminderSent: "Prescription reminder sent to +254 712 345 678",
+                general: "General",
+                fluSymptoms: "Flu Symptoms",
+                feverCough: "Fever, cough, and fatigue",
+                restFluMedication: "Rest and flu medication prescribed",
+                paracetamolAntibiotics: "Paracetamol, antibiotics (if bacterial infection suspected)",
+                patientRecovering: "Patient recovering well, advise continued rest",
+                pendingReview: "Pending Review",
+                noSmsAlerts: "No SMS alerts configured for this record.",
+                visitDate: "Visit Date",
+                treatment: "Treatment",
+                prescription: "Prescription",
+                notes: "Notes",
+                nextAppointment: "Next Appointment",
+                smsAlerts: "SMS Alerts",
+                recordNotFound: "Medical record not found.",
+                thisSectionWillDisplay: "This section will display your detailed medical history, appointments, prescribed medications, and more.\nCurrently, this is a placeholder. More data will be added here.",
+                age: "Age",
+                years: "years",
+                suggestion: "Suggestion",
+                registrationFailed: "Registration failed. Please try again.",
+                emailAlreadyInUse: "This email is already in use. Please use a different email or sign in.",
+                passwordTooWeak: "Password is too weak. It should be at least 6 characters.",
+                loginFailed: "Login failed.",
+                invalidCredentials: "Invalid email or password.",
+                invalidEmailFormat: "Invalid email format.",
+                errorLoggingOut: "Error logging out. Please try again.",
+                confirmDeletePatient: "Are you sure you want to delete this patient's record?",
+                loadingAppointments: "Loading appointments...",
+                noAppointmentsFound: "No appointments found.",
+                errorLoadingAppointments: "Error loading appointments.",
+                confirm: "Confirm",
+                cancel: "Cancel",
+                appointmentDetails: "Appointment Details",
+                patientEmail: "Patient Email",
+                bookedAt: "Booked At",
+                yes: "Yes",
+                no: "No",
+                appointmentNotFound: "Appointment not found.",
+                failedToFetchAppointmentDetails: "Failed to fetch appointment details.",
+                confirmCancelAppointment: "Are you sure you want to cancel this appointment?",
+                patientDetails: "Patient Details",
+                role: "Role",
+                mustBePatientToUpdateProfile: "You must be logged in as a patient to update your profile.",
+                failedToUpdateProfile: "Failed to update profile. Please try again.",
+                mustBePatientToBookAppointment: "You must be logged in as a patient to book an appointment.",
+                mustBeMedicToAddPatient: "You must be logged in as a medic to add a patient.",
+                yourHealthOverview: "Your Health Overview",
+                july8: "July 8, 2025 at 2:00 PM",
+                shaCoveredSmsSent: "💳 SHA Covered | 📱 SMS Reminder Sent",
+                july15: "July 15, 2025 at 10:30 AM",
+                cashPaymentSmsPending: "💰 Cash Payment | 📱 SMS Reminder Pending",
+                welcomeGuidance: "Welcome! Please select your role to proceed.",
+                patientLoginGuidance: "Enter your patient credentials or register if you don't have an account.",
+                medicLoginGuidance: "Enter your medical staff credentials or register if you don't have an account.",
+                patientRegisterGuidance: "Fill in your details to create a new patient account.",
+                medicRegisterGuidance: "Fill in your details to create a new medical staff account.",
+                signingIn: "Signing in...",
+                registering: "Registering...",
+                emailPlaceholderPatient: "patient@example.com",
+                emailPlaceholderMedic: "medic@example.com",
+                phonePlaceholder: "+254 7XX XXX XXX",
+                emailPlaceholderNewPatient: "patient.email@example.com",
+                addressPlaceholder: "Patient's Address",
+                emergencyContactPlaceholder: "Name or Phone",
+                shaNumberPlaceholder: "e.g., 1234567890",
+                reasonPlaceholder: "Brief description of your concern",
+                firebaseAuthErrorCustomTokenMismatch: "Firebase: Custom token login failed. Attempting anonymous login. Please ensure your Firebase project is correctly configured if you expect custom token authentication.",
+                firebaseAuthErrorGeneral: "Firebase Authentication Error: An issue occurred during login. Please check your Firebase project's setup.",
+                firebaseAuthErrorAnonymousDisabled: "Firebase Error: Anonymous authentication is not enabled. Please enable it in your Firebase project's Authentication settings (Sign-in method tab)."
+            }
+        };
+
+        // --- Utility Functions ---
+        function showMessage(element, message, type = 'info') {
+            if (element) {
+                element.textContent = message;
+                element.className = `message-box ${type}`;
+                element.style.display = 'block';
+                setTimeout(() => {
+                    if (element) element.style.display = 'none';
+                }, 5000); // Hide after 5 seconds
+            }
+        }
+
+        function clearMessage(element) {
+            if (element) {
+                element.textContent = '';
+                element.style.display = 'none';
+            }
+        }
+
+        function closeModal() {
+            if (recordModal) recordModal.style.display = 'none';
+            clearMessage(globalMessageBox);
+        }
+
+        function translateElement(element, lang) {
+            if (element) {
+                const enText = element.dataset.en;
+                const swText = element.dataset.sw;
+                if (lang === 'sw' && swText) {
+                    element.textContent = swText;
+                } else if (enText) {
+                    element.textContent = enText;
+                }
+            }
+        }
+
+        function changeLanguage() {
+            const selector = document.getElementById('languageSelector');
+            if (selector) {
+                currentLanguage = selector.value;
+                document.querySelectorAll('[data-en]').forEach(element => {
+                    translateElement(element, currentLanguage);
+                });
+                // Also update placeholders and values if needed
+                if (patientUsernameInput) patientUsernameInput.placeholder = translations[currentLanguage].emailPlaceholderPatient || "patient@example.com";
+                if (medicUsernameInput) medicUsernameInput.placeholder = translations[currentLanguage].emailPlaceholderMedic || "medic@example.com";
+                if (newPatientPhoneInput) newPatientPhoneInput.placeholder = translations[currentLanguage].phonePlaceholder || "+254 7XX XXX XXX";
+                if (newPatientEmailInput) newPatientEmailInput.placeholder = translations[currentLanguage].emailPlaceholderNewPatient || "patient.email@example.com";
+                if (newPatientAddressInput) newPatientAddressInput.placeholder = translations[currentLanguage].addressPlaceholder || "Patient's Address";
+                if (emergencyContactInput) emergencyContactInput.placeholder = translations[currentLanguage].emergencyContactPlaceholder || "Name or Phone";
+                if (shaNumberInput) shaNumberInput.placeholder = translations[currentLanguage].shaNumberPlaceholder || "e.g., 1234567890";
+                if (reasonTextarea) reasonTextarea.placeholder = translations[currentLanguage].reasonPlaceholder || "Brief description of your concern";
+
+                // Update guidance messages
+                if (userGuidance) userGuidance.textContent = translations[currentLanguage].welcomeGuidance;
+                if (patientLoginGuidance) patientLoginGuidance.textContent = translations[currentLanguage].patientLoginGuidance;
+                if (medicLoginGuidance) medicLoginGuidance.textContent = translations[currentLanguage].medicLoginGuidance;
+                if (patientRegisterGuidance) patientRegisterGuidance.textContent = translations[currentLanguage].patientRegisterGuidance;
+                if (medicRegisterGuidance) medicRegisterGuidance.textContent = translations[currentLanguage].medicRegisterGuidance;
+            }
+        }
+
+        // --- Authentication Functions ---
+        async function handleSignUp(role) {
+            const emailInput = role === 'patient' ? regPatientEmailInput : regMedicEmailInput;
+            const passwordInput = role === 'patient' ? regPatientPasswordInput : regMedicPasswordInput;
+            const messageBox = globalMessageBox;
+
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showMessage(messageBox, translations[currentLanguage].pleaseFillAllFields, 'error');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const btn = role === 'patient' ? registerPatientBtn : registerMedicBtn;
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = translations[currentLanguage].registering || 'Registering...';
+                }
+
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Store user role in Firestore
+                const userRef = doc(db, `artifacts/${appId}/users/${user.uid}/profile/data`);
+                await setDoc(userRef, {
+                    email: user.email,
+                    role: role,
+                    createdAt: new Date().toISOString(),
+                    // Add default profile data for patients
+                    ...(role === 'patient' && {
+                        name: 'New Patient',
+                        dob: '',
+                        phone: '',
+                        address: '',
+                        shaNumber: ''
+                    })
+                });
+
+                showMessage(messageBox, translations[currentLanguage].profileUpdatedSuccess, 'success');
+                
+                if (role === 'patient') {
+                    if (patientRegisterForm) patientRegisterForm.style.display = 'none';
+                    if (patientLoginForm) patientLoginForm.style.display = 'block';
+                } else {
+                    if (medicRegisterForm) medicRegisterForm.style.display = 'none';
+                    if (medicLoginForm) medicLoginForm.style.display = 'block';
+                }
+                
+                if (emailInput) emailInput.value = '';
+                if (passwordInput) passwordInput.value = '';
+            } catch (error) {
+                console.error("Registration error:", error);
+                let errorMessage = translations[currentLanguage].registrationFailed;
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = translations[currentLanguage].emailAlreadyInUse;
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = translations[currentLanguage].passwordTooWeak;
+                }
+                
+                showMessage(messageBox, errorMessage, 'error');
+            } finally {
+                // Reset button state
+                const btn = role === 'patient' ? registerPatientBtn : registerMedicBtn;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = translations[currentLanguage].register || 'Register';
+                }
+            }
+        }
+
+        async function handleSignIn(role) {
+            const emailInput = role === 'patient' ? patientUsernameInput : medicUsernameInput;
+            const passwordInput = role === 'patient' ? patientPasswordInput : medicPasswordInput;
+            const messageBox = globalMessageBox;
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showMessage(messageBox, translations[currentLanguage].pleaseFillAllFields, 'error');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const btn = role === 'patient' ? patientSignInBtn : medicSignInBtn;
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = translations[currentLanguage].signingIn || 'Signing in...';
+                }
+
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                console.error("Login error:", error);
+                // FIX: Corrected the ReferenceError: current之际 to currentLanguage
+                let errorMessage = translations[currentLanguage].loginFailed;
+                
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = translations[currentLanguage].invalidCredentials;
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = translations[currentLanguage].invalidEmailFormat;
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = "Too many attempts. Please try again later.";
+                }
+                
+                showMessage(messageBox, errorMessage, 'error');
+            } finally {
+                // Reset button state
+                const btn = role === 'patient' ? patientSignInBtn : medicSignInBtn;
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = translations[currentLanguage].login || 'Login';
+                }
+            }
+        }
+
+        async function handleSignOut() {
+            try {
+                await signOut(auth);
+            } catch (error) {
+                console.error("Sign out error:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].errorLoggingOut, 'error');
+            }
+        }
+
+        // --- UI State Management ---
+        function showAuthSection() {
+            if (authSection) authSection.style.display = 'block';
+            if (patientDashboardSection) patientDashboardSection.style.display = 'none';
+            if (medicDashboardSection) medicDashboardSection.style.display = 'none';
+            if (patientLoginForm) patientLoginForm.style.display = 'block';
+            if (medicLoginForm) medicLoginForm.style.display = 'none';
+            if (patientRegisterForm) patientRegisterForm.style.display = 'none';
+            if (medicRegisterForm) medicRegisterForm.style.display = 'none';
+            clearMessage(globalMessageBox);
+            
+            // Clear input fields
+            if (patientUsernameInput) patientUsernameInput.value = '';
+            if (patientPasswordInput) patientPasswordInput.value = '';
+            if (medicUsernameInput) medicUsernameInput.value = '';
+            if (medicPasswordInput) medicPasswordInput.value = '';
+            if (regPatientEmailInput) regPatientEmailInput.value = '';
+            if (regPatientPasswordInput) regPatientPasswordInput.value = '';
+            if (regMedicEmailInput) regMedicEmailInput.value = '';
+            if (regMedicPasswordInput) regMedicPasswordInput.value = '';
+        }
+
+        async function showDashboard(user) {
+            currentUserId = user.uid;
+
+            // Fetch user role from Firestore
+            const userProfileRef = doc(db, `artifacts/${appId}/users/${user.uid}/profile/data`);
+            try {
+                const docSnap = await getDoc(userProfileRef);
+                if (docSnap.exists()) {
+                    currentUserRole = docSnap.data().role;
+                } else {
+                    console.warn("User profile not found in Firestore. This might indicate missing security rules or initial setup. Defaulting to patient role.");
+                    // FIX: Added a more informative warning for missing user profile in Firestore.
+                    currentUserRole = 'patient'; // Default if profile not found
+                    // Create a basic profile if it doesn't exist (e.g., for anonymously signed-in users)
+                    await setDoc(userProfileRef, {
+                        email: user.email || 'anonymous',
+                        role: currentUserRole,
+                        createdAt: new Date().toISOString(),
+                        name: 'Anonymous User',
+                        dob: '',
+                        phone: '',
+                        address: '',
+                        shaNumber: ''
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching user role from Firestore:", error);
+                // FIX: Added a more specific error message for fetching user role.
+                showMessage(globalMessageBox, `Error fetching user role: ${error.message}. Please ensure your Firestore security rules allow read access to 'artifacts/${appId}/users/{userId}/profile/data' for authenticated users.`, 'error');
+                currentUserRole = 'patient'; // Default to patient on error
+            }
+
+            if (authSection) authSection.style.display = 'none';
+            clearMessage(globalMessageBox);
+
+            if (currentUserRole === 'medic') {
+                if (patientDashboardSection) patientDashboardSection.style.display = 'none';
+                if (medicDashboardSection) medicDashboardSection.style.display = 'block';
+                if (currentMedicUserIdDisplay) currentMedicUserIdDisplay.textContent = currentUserId;
+                if (medicDashboardTitle) medicDashboardTitle.textContent = translations[currentLanguage].medicDashboard;
+                loadAllPatientsForMedic(); // Load medic specific data
+                loadAllAppointmentsForMedic(); // Load medic specific data
+                showSection('medicOverview');
+            } else {
+                if (medicDashboardSection) medicDashboardSection.style.display = 'none';
+                if (patientDashboardSection) patientDashboardSection.style.display = 'block';
+                if (currentPatientUserIdDisplay) currentPatientUserIdDisplay.textContent = currentUserId;
+                if (patientDashboardTitle) patientDashboardTitle.textContent = translations[currentLanguage].patientDashboard;
+                loadMyRecords(); // Load patient specific data
+                loadMyAppointments();
+                showSection('patientOverview');
+            }
+            changeLanguage(); // Apply language after UI elements are visible
+        }
+
+        function selectUserType(type) {
+            if (type === 'patient') {
+                if (patientLoginBtn) patientLoginBtn.classList.add('active');
+                if (medicLoginBtn) medicLoginBtn.classList.remove('active');
+                if (patientLoginForm) patientLoginForm.style.display = 'block';
+                if (medicLoginForm) medicLoginForm.style.display = 'none';
+                if (patientRegisterForm) patientRegisterForm.style.display = 'none';
+                if (medicRegisterForm) medicRegisterForm.style.display = 'none';
+            } else {
+                if (medicLoginBtn) medicLoginBtn.classList.add('active');
+                if (patientLoginBtn) patientLoginBtn.classList.remove('active');
+                if (medicLoginForm) medicLoginForm.style.display = 'block';
+                if (patientLoginForm) patientLoginForm.style.display = 'none';
+                if (patientRegisterForm) patientRegisterForm.style.display = 'none';
+                if (medicRegisterForm) medicRegisterForm.style.display = 'none';
+            }
+            clearMessage(globalMessageBox);
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.dashboard-content .section').forEach(section => {
+                section.classList.remove('active');
+            });
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) targetSection.classList.add('active');
+
+            // Update active state for navigation buttons
+            document.querySelectorAll('.dashboard-nav .nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Find the button that corresponds to the sectionId and add 'active' class
+            const activeNavBtn = document.getElementById(`navBtn${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`);
+            if (activeNavBtn) {
+                activeNavBtn.classList.add('active');
+            } else {
+                // Handle medic dashboard nav buttons which have different IDs
+                if (sectionId === 'medicOverview' && navBtnMedicOverview) navBtnMedicOverview.classList.add('active');
+                if (sectionId === 'managePatients' && navBtnManagePatients) navBtnManagePatients.classList.add('active');
+                if (sectionId === 'manageAppointments' && navBtnManageAppointments) navBtnManageAppointments.classList.add('active');
+                if (sectionId === 'addPatient' && navBtnAddPatient) navBtnAddPatient.classList.add('active');
+            }
+            clearMessage(globalMessageBox);
+        }
+
+        // --- Improved Auth State Management ---
+        async function initializeAuth() {
+            if (authInitialized) {
+                return; // Already initialized, prevent re-runs
+            }
+
+            try {
+                if (initialAuthToken) {
+                    try {
+                        // Try to sign in with the custom token provided by the Canvas environment
+                        await signInWithCustomToken(auth, initialAuthToken);
+                        console.log("Signed in with custom token.");
+                    } catch (customTokenError) {
+                        console.warn("Custom token sign-in failed:", customTokenError.code, customTokenError.message);
+                        // Inform user about custom token issue and then fallback to anonymous login
+                        showMessage(globalMessageBox, translations[currentLanguage].firebaseAuthErrorCustomTokenMismatch, 'info');
+                        // Fallback to anonymous sign-in if custom token fails
+                        await signInAnonymously(auth);
+                        console.log("Signed in anonymously after custom token failure.");
+                    }
+                } else {
+                    // If no custom token, try anonymous auth directly
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously.");
+                }
+            } catch (error) {
+                console.error("Error during initial authentication (anonymous or general):", error);
+                let errorMessage = translations[currentLanguage].firebaseAuthErrorGeneral;
+                if (error.code === 'auth/admin-restricted-operation') {
+                    errorMessage = translations[currentLanguage].firebaseAuthErrorAnonymousDisabled;
+                }
+                showMessage(globalMessageBox, errorMessage, 'error');
+            } finally {
+                authInitialized = true; // Mark as initialized regardless of success/failure
+            }
+        }
+
+        // Main auth state listener
+        onAuthStateChanged(auth, async (user) => {
+            // This listener is crucial. It fires whenever the user's sign-in state changes.
+            // 'user' object will be null if no one is signed in, or contain user info if signed in.
+            if (user) {
+                // User is signed in. Set currentUserId to the authenticated user's UID.
+                currentUserId = user.uid;
+                await showDashboard(user);
+            } else {
+                // No user signed in (either logged out or initial state before anonymous login)
+                showAuthSection();
+                // We only call initializeAuth if it hasn't been called yet.
+                // This prevents re-attempting anonymous login every time a user logs out.
+                if (!authInitialized) {
+                    await initializeAuth();
+                }
+            }
+        });
+
+        // --- Event Listeners ---
+        function setupEventListeners() {
+            // Auth buttons
+            if (patientLoginBtn) patientLoginBtn.addEventListener('click', () => selectUserType('patient'));
+            if (medicLoginBtn) medicLoginBtn.addEventListener('click', () => selectUserType('medic'));
+            
+            // Sign in buttons
+            if (patientSignInBtn) patientSignInBtn.addEventListener('click', () => handleSignIn('patient'));
+            if (medicSignInBtn) medicSignInBtn.addEventListener('click', () => handleSignIn('medic'));
+            
+            // Registration links
+            if (showPatientRegisterLink) {
+                showPatientRegisterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleForms('patient', 'register');
+                });
+            }
+            
+            if (backToPatientLoginLink) {
+                backToPatientLoginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleForms('patient', 'login');
+                });
+            }
+            
+            if (registerPatientBtn) registerPatientBtn.addEventListener('click', () => handleSignUp('patient'));
+            
+            if (showMedicRegisterLink) {
+                showMedicRegisterLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleForms('medic', 'register');
+                });
+            }
+            
+            if (backToMedicLoginLink) {
+                backToMedicLoginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleForms('medic', 'login');
+                });
+            }
+            
+            if (registerMedicBtn) registerMedicBtn.addEventListener('click', () => handleSignUp('medic'));
+            
+            // Logout buttons
+            if (patientLogoutBtn) patientLogoutBtn.addEventListener('click', handleSignOut);
+            if (medicLogoutBtn) medicLogoutBtn.addEventListener('click', handleSignOut);
+
+            // Patient Dashboard Nav Buttons
+            if (navBtnPatientOverview) navBtnPatientOverview.addEventListener('click', () => showSection('patientOverview'));
+            if (navBtnPatientAppointments) navBtnPatientAppointments.addEventListener('click', () => showSection('patientAppointments'));
+            if (navBtnPatientRecords) navBtnPatientRecords.addEventListener('click', () => showSection('patientRecords'));
+            if (navBtnPatientProfile) navBtnPatientProfile.addEventListener('click', () => showSection('patientProfile'));
+
+            // Patient Quick Actions
+            if (quickActionEmergency) quickActionEmergency.addEventListener('click', bookEmergencyAppointment);
+            if (quickActionSHAClaims) quickActionSHAClaims.addEventListener('click', viewSHAClaims);
+            if (quickActionSMSReminder) quickActionSMSReminder.addEventListener('click', sendSMSReminder);
+
+            // Patient Appointment Booking
+            if (bookApptBtn) bookApptBtn.addEventListener('click', bookAppointment);
+
+            // Patient Profile Update
+            if (updateProfileBtn) updateProfileBtn.addEventListener('click', updateProfile);
+
+            // Patient Records View Buttons (dynamic, so attach to parent and delegate)
+            if (patientRecordsTableBody) {
+                patientRecordsTableBody.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('view-btn')) {
+                        const recordId = event.target.dataset.recordId;
+                        viewRecord(recordId);
+                    }
+                });
+            }
+
+            // Medic Dashboard Nav Buttons
+            if (navBtnMedicOverview) navBtnMedicOverview.addEventListener('click', () => showSection('medicOverview'));
+            if (navBtnManagePatients) navBtnManagePatients.addEventListener('click', () => showSection('managePatients'));
+            if (navBtnManageAppointments) navBtnManageAppointments.addEventListener('click', () => showSection('manageAppointments'));
+            if (navBtnAddPatient) navBtnAddPatient.addEventListener('click', () => showSection('addPatient'));
+
+            // Medic Add Patient
+            if (addPatientBtn) addPatientBtn.addEventListener('click', addPatient);
+
+            // Medic Patient/Appointment Table Actions (dynamic, so attach to parent and delegate)
+            if (medicPatientsTableBody) {
+                medicPatientsTableBody.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('view-btn')) {
+                        const patientId = event.target.dataset.patientId; // Assuming data-patient-id is set
+                        viewPatientDetails(patientId);
+                    } else if (event.target.classList.contains('edit-btn')) {
+                        const patientId = event.target.dataset.patientId;
+                        editPatient(patientId);
+                    } else if (event.target.classList.contains('delete-btn')) {
+                        const patientId = event.target.dataset.patientId;
+                        deletePatient(patientId);
+                    }
+                });
+            }
+
+            if (medicAppointmentsTableBody) {
+                medicAppointmentsTableBody.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('view-btn')) {
+                        const appointmentId = event.target.dataset.appointmentId; // Assuming data-appointment-id is set
+                        viewAppointmentDetails(appointmentId);
+                    } else if (event.target.classList.contains('edit-btn')) { // Used for 'Confirm'
+                        const appointmentId = event.target.dataset.appointmentId;
+                        confirmAppointment(appointmentId);
+                    } else if (event.target.classList.contains('delete-btn')) { // Used for 'Cancel'
+                        const appointmentId = event.target.dataset.appointmentId;
+                        cancelAppointment(appointmentId);
+                    }
+                });
+            }
+
+            // Modal close button
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+            // Language selector
+            const languageSelector = document.getElementById('languageSelector');
+            if (languageSelector) languageSelector.addEventListener('change', changeLanguage);
+
+            // Payment method selection (simulated)
+            if (paymentMethodSelect) {
+                paymentMethodSelect.addEventListener('change', (event) => {
+                    selectPayment(event.target.value);
+                });
+            }
+        }
+
+        function toggleForms(userType, formType) {
+            if (userType === 'patient') {
+                if (patientLoginForm) patientLoginForm.style.display = formType === 'login' ? 'block' : 'none';
+                if (patientRegisterForm) patientRegisterForm.style.display = formType === 'register' ? 'block' : 'none';
+            } else {
+                if (medicLoginForm) medicLoginForm.style.display = formType === 'login' ? 'block' : 'none';
+                if (medicRegisterForm) medicRegisterForm.style.display = formType === 'register' ? 'block' : 'none';
+            }
+            clearMessage(globalMessageBox);
+        }
+
+
+        // --- Patient Dashboard Functions ---
+        async function updateProfile() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'patient') {
+                showMessage(globalMessageBox, translations[currentLanguage].mustBePatientToUpdateProfile, 'error');
+                return;
+            }
+
+            const name = patientNameInput ? patientNameInput.value.trim() : '';
+            const dob = patientDobInput ? patientDobInput.value : '';
+            const phone = patientPhoneInput ? patientPhoneInput.value.trim() : '';
+            const address = patientAddressInput ? patientAddressInput.value.trim() : '';
+            const sha = patientSHAInput ? patientSHAInput.value.trim() : '';
+
+            if (!name || !dob || !phone || !address) {
+                showMessage(globalMessageBox, translations[currentLanguage].pleaseFillAllFields, 'error');
+                return;
+            }
+
+            try {
+                const userRef = doc(db, `artifacts/${appId}/users/${currentUserId}/profile/data`);
+                await setDoc(userRef, {
+                    name: name,
+                    dob: dob,
+                    phone: phone,
+                    address: address,
+                    shaNumber: sha,
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true }); // Use merge to only update specified fields
+
+                showMessage(globalMessageBox, translations[currentLanguage].profileUpdatedSuccess, 'success');
+
+                // Simulate SHA sync
+                setTimeout(() => {
+                    showMessage(globalMessageBox, translations[currentLanguage].shaVerificationComplete, 'info');
+                }, 3000);
+
+                loadMyRecords(); // Refresh profile data after update
+            } catch (error) {
+                console.error("Error updating profile:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].failedToUpdateProfile, 'error');
+            }
+        }
+
+        async function loadMyRecords() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'patient') return;
+
+            // Ensure my-records-display exists before trying to update it
+            const myRecordsDisplay = document.getElementById('my-records-display');
+            if (!myRecordsDisplay) {
+                console.error("Element with ID 'my-records-display' not found.");
+                return;
+            }
+
+            myRecordsDisplay.innerHTML = `<p>${translations[currentLanguage].loadingRecords}</p>`;
+            try {
+                const myProfileRef = doc(db, `artifacts/${appId}/users/${currentUserId}/profile/data`);
+                const profileSnap = await getDoc(myProfileRef);
+
+                let recordsHtml = `<h3>${translations[currentLanguage].yourHealthOverview}:</h3>`;
+                if (profileSnap.exists()) {
+                    const profileData = profileSnap.data();
+                    if (patientNameInput) patientNameInput.value = profileData.name || '';
+                    if (patientDobInput) patientDobInput.value = profileData.dob || '';
+                    if (patientPhoneInput) patientPhoneInput.value = profileData.phone || '';
+                    if (patientEmailInput) patientEmailInput.value = profileData.email || ''; // Email is usually from auth, but display it
+                    if (patientAddressInput) patientAddressInput.value = profileData.address || '';
+                    if (patientSHAInput) patientSHAInput.value = profileData.shaNumber || '';
+
+                    recordsHtml += `
+                        <p><strong>${translations[currentLanguage].email}:</strong> ${profileData.email || 'N/A'}</p>
+                        <p><strong>${translations[currentLanguage].role}:</strong> ${profileData.role || 'N/A'}</p>
+                        <p>${translations[currentLanguage].thisSectionWillDisplay}</p>
+                    `;
+
+                    if (profileData.dob) {
+                        const dobDate = new Date(profileData.dob);
+                        const today = new Date();
+                        let age = today.getFullYear() - dobDate.getFullYear();
+                        const m = today.getMonth() - dobDate.getMonth();
+                        if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+                            age--;
+                        }
+                        recordsHtml += `<p><strong>${translations[currentLanguage].dateOfBirth}:</strong> ${profileData.dob} (${translations[currentLanguage].age}: ${age} ${translations[currentLanguage].years})</p>`;
+
+                        if (age < 18) {
+                            recordsHtml += `<p><em>${translations[currentLanguage].suggestion}:</em> ${translations[currentLanguage].suggestionPediatric}</p>`;
+                        } else if (age >= 18 && age < 50) {
+                            recordsHtml += `<p><em>${translations[currentLanguage].suggestion}:</em> ${translations[currentLanguage].suggestionAdult}</p>`;
+                        } else {
+                            recordsHtml += `<p><em>${translations[currentLanguage].suggestion}:</em> ${translations[currentLanguage].suggestionSenior}</p>`;
+                        }
+                    } else {
+                         recordsHtml += `<p><em>${translations[currentLanguage].suggestion}:</em> ${translations[currentLanguage].suggestionDOBMissing}</p>`;
+                    }
+                } else {
+                    recordsHtml += `<p>${translations[currentLanguage].noRecordsFound}</p>`;
+                }
+                myRecordsDisplay.innerHTML = recordsHtml;
+            } catch (error) {
+                console.error("Error loading patient records:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].errorLoadingRecords, 'error');
+                myRecordsDisplay.innerHTML = `<p>${translations[currentLanguage].errorLoadingRecords}</p>`;
+            }
+        }
+
+        async function loadMyMedicalRecordsTable() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'patient') return;
+
+            if (patientRecordsTableBody) patientRecordsTableBody.innerHTML = ''; // Clear existing
+            try {
+                // Fetch actual medical records for the patient (simulated for now)
+                // In a real app, these would be in a subcollection under the patient's profile
+                // e.g., `artifacts/${appId}/users/${currentUserId}/medicalRecords`
+                // For now, we'll use placeholder data.
+                const records = [
+                    { id: 'rec1', date: 'June 15, 2025', doctor: 'Dr. Sarah Johnson', department: translations[currentLanguage].cardiology, diagnosis: translations[currentLanguage].routineCheckup },
+                    { id: 'rec2', date: 'May 20, 2025', doctor: 'Dr. Michael Chen', department: translations[currentLanguage].general, diagnosis: translations[currentLanguage].fluSymptoms }
+                ];
+
+                if (records.length === 0) {
+                    if (patientRecordsTableBody) patientRecordsTableBody.innerHTML = `<tr><td colspan="5">${translations[currentLanguage].noRecordsFound}</td></tr>`;
+                    return;
+                }
+
+                records.forEach(record => {
+                    const row = patientRecordsTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${record.date}</td>
+                        <td>${record.doctor}</td>
+                        <td>${record.department}</td>
+                        <td>${record.diagnosis}</td>
+                        <td>
+                            <button class="action-btn view-btn" data-record-id="${record.id}" data-en="View" data-sw="Angalia">View</button>
+                        </td>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error loading patient medical records:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].errorLoadingRecords, 'error');
+            }
+        }
+
+        async function loadMyAppointments() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'patient') return;
+
+            // This function would load appointments for the patient
+            // For now, the overview section has hardcoded appointments.
+            // In a real app, this would fetch from `artifacts/${appId}/public/data/appointments`
+            // filtered by `patientId: currentUserId`.
+            const appointmentsListDiv = document.querySelector('#patientOverview .appointments-list');
+            // Re-render the hardcoded ones with translations
+            if (appointmentsListDiv) {
+                appointmentsListDiv.innerHTML = `
+                    <h3 id="nextApptsTitle" data-en="Next Appointments" data-sw="Miadi Ijayo">${translations[currentLanguage].nextAppts}</h3>
+                    <div class="appointment-item">
+                        <div class="appointment-info">
+                            <h4 data-en="Dr. Sarah Johnson - Cardiology" data-sw="Dkt. Sarah Johnson - Magonjwa ya Moyo">${translations[currentLanguage].drSarah}</h4>
+                            <p data-en="July 8, 2025 at 2:00 PM" data-sw="Julai 8, 2025 saa 8:00 Mchana">${translations[currentLanguage].july8}</p>
+                            <p data-en="💳 SHA Covered | 📱 SMS Reminder Sent" data-sw="💳 SHA Imelipwa | 📱 Kikumbusho cha SMS Kimetumwa">${translations[currentLanguage].shaCoveredSmsSent}</p>
+                        </div>
+                        <span class="status-badge status-confirmed" data-en="Confirmed" data-sw="Imethibitishwa">${translations[currentLanguage].confirmed}</span>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="appointment-info">
+                            <h4 data-en="Dr. Michael Chen - General Check-up" data-sw="Dkt. Michael Chen - Uchunguzi Mkuu">Dr. Michael Chen - General Check-up</h4>
+                            <p data-en="July 15, 2025 at 10:30 AM" data-sw="Julai 15, 2025 saa 4:30 Asubuhi">${translations[currentLanguage].july15}</p>
+                            <p data-en="💰 Cash Payment | 📱 SMS Reminder Pending" data-sw="💰 Malipo ya Fedha | 📱 Kikumbusho cha SMS Kinachosubiri">${translations[currentLanguage].cashPaymentSmsPending}</p>
+                        </div>
+                        <span class="status-badge status-pending" data-en="Pending" data-sw="Inasubiri">${translations[currentLanguage].pending}</span>
+                    </div>
+                `;
+            }
+            // Update stats
+            const numUpcomingApptsElement = document.getElementById('numUpcomingAppts');
+            if (numUpcomingApptsElement) numUpcomingApptsElement.textContent = '3'; // Example hardcoded for now
+        }
+
+
+        async function bookAppointment() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'patient') {
+                showMessage(globalMessageBox, translations[currentLanguage].mustBePatientToBookAppointment, 'error');
+                return;
+            }
+
+            const department = departmentSelect ? departmentSelect.value : '';
+            const date = appointmentDateInput ? appointmentDateInput.value : '';
+            const time = appointmentTimeInput ? appointmentTimeInput.value : '';
+            const paymentMethod = paymentMethodSelect ? paymentMethodSelect.value : '';
+            const shaNumber = shaNumberInput ? shaNumberInput.value.trim() : '';
+            const reason = reasonTextarea ? reasonTextarea.value.trim() : '';
+            const sendSms = smsNotificationCheckbox ? smsNotificationCheckbox.checked : false;
+
+            if (!department || !date || !time || !paymentMethod || !reason) {
+                showMessage(globalMessageBox, translations[currentLanguage].pleaseFillAllFields, 'error');
+                return;
+            }
+
+            try {
+                const appointmentsCollectionRef = collection(db, `artifacts/${appId}/public/data/appointments`);
+                await addDoc(appointmentsCollectionRef, {
+                    patientId: currentUserId,
+                    patientEmail: auth.currentUser ? auth.currentUser.email : 'N/A',
+                    department: department,
+                    date: date,
+                    time: time,
+                    paymentMethod: paymentMethod,
+                    shaNumber: paymentMethod === 'sha' ? shaNumber : '',
+                    reason: reason,
+                    sendSmsReminder: sendSms,
+                    status: 'pending',
+                    bookedAt: new Date().toISOString()
+                });
+                showMessage(globalMessageBox, translations[currentLanguage].appointmentBookedSuccess, 'success');
+                // Clear form
+                if (departmentSelect) departmentSelect.value = 'general';
+                if (appointmentDateInput) appointmentDateInput.value = '';
+                if (appointmentTimeInput) appointmentTimeInput.value = '';
+                if (paymentMethodSelect) paymentMethodSelect.value = 'sha';
+                if (shaNumberInput) shaNumberInput.value = '';
+                if (reasonTextarea) reasonTextarea.value = '';
+                if (smsNotificationCheckbox) smsNotificationCheckbox.checked = true;
+                loadMyAppointments(); // Refresh appointments list
+            } catch (error) {
+                console.error("Error booking appointment:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].failedToBookAppointment, 'error');
+            }
+        }
+
+        function viewRecord(recordId) {
+            // This function is called from patientRecords, which is only accessible if currentUserId is set and role is patient.
+            // No explicit currentUserId/currentUserRole check needed within this function as it's UI-gated.
+            // Simulate fetching record details based on recordId
+            const recordData = {
+                'rec1': {
+                    date: 'June 15, 2025',
+                    doctor: 'Dr. Sarah Johnson',
+                    department: translations[currentLanguage].cardiology,
+                    diagnosis: translations[currentLanguage].routineCheckup,
+                    symptoms: translations[currentLanguage].noSpecificSymptoms,
+                    treatment: translations[currentLanguage].generalHealthAssessment,
+                    prescription: translations[currentLanguage].continueCurrentMedications,
+                    notes: translations[currentLanguage].patientInGoodHealth,
+                    nextAppointment: 'December 15, 2025',
+                    shaClaimStatus: translations[currentLanguage].approvedKsh,
+                    shaReference: `SHA-2025-${recordId}${Math.floor(Math.random() * 1000)}`,
+                    smsAlerts: translations[currentLanguage].prescriptionReminderSent
+                },
+                'rec2': {
+                    date: 'May 20, 2025',
+                    doctor: 'Dr. Michael Chen',
+                    department: translations[currentLanguage].general,
+                    diagnosis: translations[currentLanguage].fluSymptoms,
+                    symptoms: translations[currentLanguage].feverCough,
+                    treatment: translations[currentLanguage].restFluMedication,
+                    prescription: translations[currentLanguage].paracetamolAntibiotics,
+                    notes: translations[currentLanguage].patientRecovering,
+                    nextAppointment: 'N/A',
+                    shaClaimStatus: translations[currentLanguage].pendingReview,
+                    shaReference: `SHA-2025-${recordId}${Math.floor(Math.random() * 1000)}`,
+                    smsAlerts: translations[currentLanguage].noSmsAlerts
+                }
+            };
+
+            const record = recordData[recordId];
+            if (!record) {
+                showMessage(globalMessageBox, translations[currentLanguage].recordNotFound, 'error');
+                return;
+            }
+
+            if (recordDetailsDiv) {
+                recordDetailsDiv.innerHTML = `
+                    <div class="patient-form">
+                        <h4>${translations[currentLanguage].medicalRecordDetails}</h4>
+                        <div class="sha-section">
+                            <p><strong>${translations[currentLanguage].shaClaimStatus}:</strong> ${record.shaClaimStatus}</p>
+                            <p><strong>${translations[currentLanguage].referenceNumber}:</strong> ${record.shaReference}</p>
+                        </div>
+                        <p><strong>${translations[currentLanguage].visitDate}:</strong> ${record.date}</p>
+                        <p><strong>${translations[currentLanguage].doctor}:</strong> ${record.doctor}</p>
+                        <p><strong>${translations[currentLanguage].department}:</strong> ${record.department}</p>
+                        <p><strong>${translations[currentLanguage].diagnosis}:</strong> ${record.diagnosis}</p>
+                        <p><strong>${translations[currentLanguage].symptoms}:</strong> ${record.symptoms}</p>
+                        <p><strong>${translations[currentLanguage].treatment}:</strong> ${record.treatment}</p>
+                        <p><strong>${translations[currentLanguage].prescription}:</strong> ${record.prescription}</p>
+                        <p><strong>${translations[currentLanguage].notes}:</strong> ${record.notes}</p>
+                        <p><strong>${translations[currentLanguage].nextAppointment}:</strong> ${record.nextAppointment}</p>
+                        <div class="sms-notification">
+                            <p><strong>${translations[currentLanguage].smsAlerts}:</strong> ${record.smsAlerts}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            if (recordModal) recordModal.style.display = 'flex'; // Use flex to center the modal
+        }
+
+        function bookEmergencyAppointment() {
+            showMessage(globalMessageBox, translations[currentLanguage].emergencyBooked, 'info');
+        }
+
+        function viewSHAClaims() {
+            showMessage(globalMessageBox, translations[currentLanguage].shaClaimsViewed, 'info');
+        }
+
+        function sendSMSReminder() {
+            showMessage(globalMessageBox, translations[currentLanguage].smsReminderSent, 'info');
+        }
+
+        function selectPayment(method) {
+            let message = '';
+            if (method === 'mpesa') {
+                message = translations[currentLanguage].mpesaSelected;
+            } else if (method === 'sha') {
+                message = translations[currentLanguage].shaSelected;
+            } else if (method === 'equity') {
+                message = translations[currentLanguage].equitySelected;
+            } else if (method === 'kcb') {
+                message = translations[currentLanguage].kcbSelected;
+            }
+            showMessage(globalMessageBox, message, 'info');
+        }
+
+        // --- Medic Dashboard Functions ---
+        async function addPatient() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, translations[currentLanguage].mustBeMedicToAddPatient, 'error');
+                return;
+            }
+
+            const name = newPatientNameInput ? newPatientNameInput.value.trim() : '';
+            const dob = newPatientDobInput ? newPatientDobInput.value : '';
+            const phone = newPatientPhoneInput ? newPatientPhoneInput.value.trim() : '';
+            const email = newPatientEmailInput ? newPatientEmailInput.value.trim() : '';
+            const address = newPatientAddressInput ? newPatientAddressInput.value.trim() : '';
+            const emergency = emergencyContactInput ? emergencyContactInput.value.trim() : '';
+
+            if (!name || !dob || !phone || !email) {
+                showMessage(globalMessageBox, translations[currentLanguage].pleaseFillAllFields, 'error');
+                return;
+            }
+
+            try {
+                const patientsCollectionRef = collection(db, `artifacts/${appId}/public/data/patients`);
+                await addDoc(patientsCollectionRef, {
+                    name: name,
+                    dob: dob,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    emergencyContact: emergency,
+                    addedBy: currentUserId,
+                    createdAt: new Date().toISOString()
+                });
+
+                showMessage(globalMessageBox, translations[currentLanguage].patientAddedSuccess.replace('{name}', name), 'success');
+                // Clear form
+                if (newPatientNameInput) newPatientNameInput.value = '';
+                if (newPatientDobInput) newPatientDobInput.value = '';
+                if (newPatientPhoneInput) newPatientPhoneInput.value = '';
+                if (newPatientEmailInput) newPatientEmailInput.value = '';
+                if (newPatientAddressInput) newPatientAddressInput.value = '';
+                if (emergencyContactInput) emergencyContactInput.value = '';
+                loadAllPatientsForMedic(); // Refresh the list
+            } catch (error) {
+                console.error("Error adding patient:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].failedToAddPatient, 'error');
+            }
+        }
+
+        async function loadAllPatientsForMedic() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') return;
+
+            if (medicPatientsTableBody) medicPatientsTableBody.innerHTML = `<tr><td colspan="5">${translations[currentLanguage].loadingPatients}</td></tr>`;
+            try {
+                const patientsCollectionRef = collection(db, `artifacts/${appId}/public/data/patients`);
+                const q = query(patientsCollectionRef);
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    if (medicPatientsTableBody) medicPatientsTableBody.innerHTML = `<tr><td colspan="5">${translations[currentLanguage].noPatientsFound}</td></tr>`;
+                    return;
+                }
+
+                let patients = [];
+                querySnapshot.forEach(doc => {
+                    patients.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Sort patients by name client-side
+                patients.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+                if (medicPatientsTableBody) medicPatientsTableBody.innerHTML = ''; // Clear before populating
+                patients.forEach(patient => {
+                    const age = patient.dob ? new Date().getFullYear() - new Date(patient.dob).getFullYear() : 'N/A';
+                    const row = medicPatientsTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${patient.name || 'N/A'}</td>
+                        <td>${age}</td>
+                        <td>${patient.phone || 'N/A'}</td>
+                        <td>New Patient</td> <!-- Placeholder status -->
+                        <td>
+                            <button class="action-btn view-btn" data-patient-id="${patient.id}" data-en="View" data-sw="Angalia">View</button>
+                            <button class="action-btn edit-btn" data-patient-id="${patient.id}" data-en="Edit" data-sw="Hariri">Edit</button>
+                            <button class="action-btn delete-btn" data-patient-id="${patient.id}" data-en="Delete" data-sw="Futa">Delete</button>
+                        </td>
+                    `;
+                });
+                const totalPatientsElement = document.getElementById('totalPatients');
+                if (totalPatientsElement) totalPatientsElement.textContent = patients.length; // Update total patients stat
+            } catch (error) {
+                console.error("Error loading patients for medic:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].errorLoadingPatients, 'error');
+                if (medicPatientsTableBody) medicPatientsTableBody.innerHTML = `<tr><td colspan="5">${translations[currentLanguage].errorLoadingPatients}</td></tr>`;
+            }
+        }
+
+        async function loadAllAppointmentsForMedic() {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') return;
+
+            if (medicAppointmentsTableBody) medicAppointmentsTableBody.innerHTML = `<tr><td colspan="6">${translations[currentLanguage].loadingAppointments}</td></tr>`;
+            try {
+                const appointmentsCollectionRef = collection(db, `artifacts/${appId}/public/data/appointments`);
+                const q = query(appointmentsCollectionRef);
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    if (medicAppointmentsTableBody) medicAppointmentsTableBody.innerHTML = `<tr><td colspan="6">${translations[currentLanguage].noAppointmentsFound}</td></tr>`;
+                    return;
+                }
+
+                let appointments = [];
+                querySnapshot.forEach(doc => {
+                    appointments.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Sort appointments by date and time
+                appointments.sort((a, b) => {
+                    const dateA = new Date(`${a.date}T${a.time}`);
+                    const dateB = new Date(`${b.date}T${b.time}`);
+                    return dateA - dateB;
+                });
+
+                if (medicAppointmentsTableBody) medicAppointmentsTableBody.innerHTML = ''; // Clear before populating
+                appointments.forEach(appointment => {
+                    const row = medicAppointmentsTableBody.insertRow();
+                    row.innerHTML = `
+                        <td>${appointment.patientEmail || 'N/A'}</td>
+                        <td>${appointment.date || 'N/A'}</td>
+                        <td>${appointment.time || 'N/A'}</td>
+                        <td>${appointment.reason || 'N/A'}</td>
+                        <td><span class="status-badge status-${appointment.status}">${appointment.status}</span></td>
+                        <td>
+                            <button class="action-btn view-btn" data-appointment-id="${appointment.id}" data-en="View" data-sw="Angalia">View</button>
+                            <button class="action-btn edit-btn" data-appointment-id="${appointment.id}" data-en="Confirm" data-sw="Thibitisha">Confirm</button>
+                            <button class="action-btn delete-btn" data-appointment-id="${appointment.id}" data-en="Cancel" data-sw="Ghairi">Cancel</button>
+                        </td>
+                    `;
+                });
+                const pendingAppointmentsElement = document.getElementById('pendingAppointments');
+                if (pendingAppointmentsElement) pendingAppointmentsElement.textContent = appointments.filter(a => a.status === 'pending').length;
+            } catch (error) {
+                console.error("Error loading appointments for medic:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].errorLoadingAppointments, 'error');
+                if (medicAppointmentsTableBody) medicAppointmentsTableBody.innerHTML = `<tr><td colspan="6">${translations[currentLanguage].errorLoadingAppointments}</td></tr>`;
+            }
+        }
+
+        async function viewPatientDetails(patientId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to view patient details.`, 'error');
+                return;
+            }
+            showMessage(globalMessageBox, translations[currentLanguage].viewingDetailsFor.replace('{id}', patientId), 'info');
+            try {
+                const patientDocRef = doc(db, `artifacts/${appId}/public/data/patients`, patientId);
+                const docSnap = await getDoc(patientDocRef);
+                if (docSnap.exists()) {
+                    const patientData = docSnap.data();
+                    if (recordDetailsDiv) {
+                        recordDetailsDiv.innerHTML = `
+                            <div class="patient-form">
+                                <h4>${translations[currentLanguage].patientDetails}</h4>
+                                <p><strong>${translations[currentLanguage].name}:</strong> ${patientData.name || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].dateOfBirth}:</strong> ${patientData.dob || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].phone}:</strong> ${patientData.phone || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].email}:</strong> ${patientData.email || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].address}:</strong> ${patientData.address || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].emergencyContact}:</strong> ${patientData.emergencyContact || 'N/A'}</p>
+                                <p>This is where detailed medical history, past visits, etc., would be displayed for the medic.</p>
+                            </div>
+                        `;
+                    }
+                    if (recordModal) recordModal.style.display = 'flex';
+                } else {
+                    showMessage(globalMessageBox, translations[currentLanguage].patientNotFound, 'error');
+                }
+            } catch (error) {
+                console.error("Error fetching patient details:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].failedToFetchPatientDetails, 'error');
+            }
+        }
+
+        function editPatient(patientId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to edit patient records.`, 'error');
+                return;
+            }
+            showMessage(globalMessageBox, `Editing patient ID: ${patientId}. (Feature under development)`, 'info');
+        }
+
+        async function deletePatient(patientId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to delete patient records.`, 'error');
+                return;
+            }
+            // Using window.confirm as per existing code, but ideally this should be a custom modal
+            const userConfirmed = window.confirm(translations[currentLanguage].confirmDeletePatient);
+            if (!userConfirmed) {
+                return;
+            }
+            try {
+                await deleteDoc(doc(db, `artifacts/${appId}/public/data/patients`, patientId));
+                showMessage(globalMessageBox, `Patient ID ${patientId} deleted successfully.`, 'success');
+                loadAllPatientsForMedic(); // Refresh list
+            } catch (error) {
+                console.error("Error deleting patient:", error);
+                showMessage(globalMessageBox, `Failed to delete patient ID ${patientId}.`, 'error');
+            }
+        }
+
+        async function confirmAppointment(appointmentId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to confirm appointments.`, 'error');
+                return;
+            }
+            try {
+                const apptRef = doc(db, `artifacts/${appId}/public/data/appointments`, appointmentId);
+                await setDoc(apptRef, { status: 'confirmed' }, { merge: true });
+                showMessage(globalMessageBox, `Appointment ${appointmentId} confirmed.`, 'success');
+                loadAllAppointmentsForMedic(); // Refresh list
+            } catch (error) {
+                console.error("Error confirming appointment:", error);
+                showMessage(globalMessageBox, `Failed to confirm appointment ${appointmentId}.`, 'error');
+            }
+        }
+
+        async function cancelAppointment(appointmentId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to cancel appointments.`, 'error');
+                return;
+            }
+            // Using window.confirm as per existing code, but ideally this should be a custom modal
+            const userConfirmed = window.confirm(translations[currentLanguage].confirmCancelAppointment);
+            if (!userConfirmed) {
+                return;
+            }
+            try {
+                const apptRef = doc(db, `artifacts/${appId}/public/data/appointments`, appointmentId);
+                await setDoc(apptRef, { status: 'cancelled' }, { merge: true });
+                showMessage(globalMessageBox, `Appointment ${appointmentId} cancelled.`, 'info');
+                loadAllAppointmentsForMedic(); // Refresh list
+            } catch (error) {
+                console.error("Error cancelling appointment:", error);
+                showMessage(globalMessageBox, `Failed to cancel appointment ${appointmentId}.`, 'error');
+            }
+        }
+
+        async function viewAppointmentDetails(appointmentId) {
+            // Ensure user is authenticated and has the correct role before proceeding
+            if (!currentUserId || currentUserRole !== 'medic') {
+                showMessage(globalMessageBox, `Unauthorized: You must be a medic to view appointment details.`, 'error');
+                return;
+            }
+            showMessage(globalMessageBox, `Viewing details for appointment ID: ${appointmentId}. (Feature under development)`, 'info');
+            try {
+                const apptDocRef = doc(db, `artifacts/${appId}/public/data/appointments`, appointmentId);
+                const docSnap = await getDoc(apptDocRef);
+                if (docSnap.exists()) {
+                    const apptData = docSnap.data();
+                    if (recordDetailsDiv) {
+                        recordDetailsDiv.innerHTML = `
+                            <div class="patient-form">
+                                <h4>${translations[currentLanguage].appointmentDetails}</h4>
+                                <p><strong>${translations[currentLanguage].patientEmail}:</strong> ${apptData.patientEmail || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].date}:</strong> ${apptData.date || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].time}:</strong> ${apptData.time || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].department}:</strong> ${apptData.department || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].reason}:</strong> ${apptData.reason || 'N/A'}</p>
+                                <p><strong>${translations[currentLanguage].paymentMethod}:</strong> ${apptData.paymentMethod || 'N/A'}</p>
+                                ${apptData.shaNumber ? `<p><strong>${translations[currentLanguage].shaNumber}:</strong> ${apptData.shaNumber}</p>` : ''}
+                                <p><strong>${translations[currentLanguage].smsReminder}:</strong> ${apptData.sendSmsReminder ? translations[currentLanguage].yes : translations[currentLanguage].no}</p>
+                                <p><strong>${translations[currentLanguage].status}:</strong> <span class="status-badge status-${apptData.status}">${apptData.status}</span></p>
+                                <p><strong>${translations[currentLanguage].bookedAt}:</strong> ${new Date(apptData.bookedAt).toLocaleString()}</p>
+                            </div>
+                        `;
+                    }
+                    if (recordModal) recordModal.style.display = 'flex';
+                } else {
+                    showMessage(globalMessageBox, translations[currentLanguage].appointmentNotFound, 'error');
+                }
+            } catch (error) {
+                console.error("Error fetching appointment details:", error);
+                showMessage(globalMessageBox, translations[currentLanguage].failedToFetchAppointmentDetails, 'error');
+            }
+        }
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', async () => {
+            changeLanguage(); // Apply initial language
+            selectUserType('patient'); // Ensure correct form is shown on load if not authenticated
+
+            // Ensure records display element exists
+            const patientOverview = document.getElementById('patientOverview');
+            if (patientOverview && !patientOverview.querySelector('#my-records-display')) {
+                const myRecordsDisplay = document.createElement('div');
+                myRecordsDisplay.id = 'my-records-display';
+                patientOverview.appendChild(myRecordsDisplay);
+            }
+            await initializeAuth(); // Call initializeAuth on DOMContentLoaded
+            setupEventListeners(); // Setup event listeners after auth initialization
+        });
+
+    </script>
+</body>
+</html>
